@@ -1,14 +1,24 @@
-Bacteria swagMasta = new Bacteria();
+Bacteria[] swagMastas;
+int randomRed=(int)(Math.random()*255)+1;
+int randomBlue=(int)(Math.random()*255)+1;
+int randomGreen=(int)(Math.random()*255)+1;
  void setup()   
  {     
  	//initialize bacteria variables here  
  	size(512, 512); 
- 	background(1);
+ 	swagMastas = new Bacteria[325];
+ 	for (int i = 0; i < swagMastas.length; ++i) {
+ 		swagMastas[i] = new Bacteria();
+ 	}
+ 	
  }   
  void draw()   
  {    
- 	swagMasta.show();
- 	swagMasta.walk();
+ 	background(randomRed, randomBlue, randomGreen);
+ 	for (int j = 0; j < swagMastas.length; ++j) {
+ 		swagMastas[j].show();
+ 		swagMastas[j].walk();
+ 	}
  }  
  class Bacteria    
  {     
@@ -20,12 +30,12 @@ Bacteria swagMasta = new Bacteria();
  	}
 
  	void show(){
- 		fill(250, 0, 0);
- 		ellipse(myX, myY, 50, 50);
+ 		fill((int)(Math.random()*255)+1, (int)(Math.random()*255)+1, (int)(Math.random()*255)+1);
+ 		ellipse(myX, myY, 10, 10);
  	}
 
  	void walk(){
- 		myX= myX + (int)(Math.random()*5)-2;
- 		myY = myY + (int)(Math.random()*5)-2;
+ 		myX= myX + (int)((Math.random()*5)-2.5);
+ 		myY = myY + (int)((Math.random()*5)-2.5);
  	}
  }       
