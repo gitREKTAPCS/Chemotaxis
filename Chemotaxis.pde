@@ -20,13 +20,15 @@ int randomGreen=(int)(Math.random()*255)+1;
  		swagMastas[j].walk();
  	}
  }  
+
+ //bacteria class
  class Bacteria    
  {     
  	int myX, myY;
 
  	Bacteria(){
- 		myX = 250;
- 		myY = 250;
+ 		myX = 256;
+ 		myY = 256;
  	}
 
  	void show(){
@@ -35,7 +37,23 @@ int randomGreen=(int)(Math.random()*255)+1;
  	}
 
  	void walk(){
- 		myX= myX + (int)((Math.random()*5)-2.5);
- 		myY = myY + (int)((Math.random()*5)-2.5);
- 	}
- }       
+ 		int randomX = (int)((Math.random()*5)-2.5);
+ 		int randomY = (int)((Math.random()*5)-2.5);
+ 		if(myX<512 && myX>0){
+ 			myX= myX + randomX;
+ 		}
+ 		if(myY<512 && myY>0){
+ 		myY = myY + randomY;
+ 		}
+      }
+}
+
+/*class Foods
+{
+	int foodX, foodY;
+
+	Foods(){
+
+	}
+}
+*/
