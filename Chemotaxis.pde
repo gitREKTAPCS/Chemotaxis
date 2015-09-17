@@ -1,4 +1,5 @@
 Bacteria[] swagMastas;
+Foods chewy;
 int randomRed=(int)(Math.random()*255)+1;
 int randomBlue=(int)(Math.random()*255)+1;
 int randomGreen=(int)(Math.random()*255)+1;
@@ -6,19 +7,27 @@ int randomGreen=(int)(Math.random()*255)+1;
  {     
  	//initialize bacteria variables here  
  	size(512, 512); 
+ 	chewy = new Foods();
  	swagMastas = new Bacteria[325];
  	for (int i = 0; i < swagMastas.length; ++i) {
  		swagMastas[i] = new Bacteria();
  	}
+
  	
  }   
  void draw()   
  {    
  	background(randomRed, randomBlue, randomGreen);
  	for (int j = 0; j < swagMastas.length; ++j) {
+ 		chewy.show();
  		swagMastas[j].show();
  		swagMastas[j].walk();
+ 		if((swagMastas[j].myX==chewy.foodX) && (swagMastas[j].myY==chewy.foodY)){
+			chewy.eaten();
+		}
  	}
+ 	
+	
  }  
 
  //bacteria class
@@ -48,12 +57,23 @@ int randomGreen=(int)(Math.random()*255)+1;
       }
 }
 
-/*class Foods
+class Foods
 {
 	int foodX, foodY;
 
 	Foods(){
-
+		foodX = 300;
+		foodY = 250;
 	}
+
+	void show(){
+		fill((int)(Math.random()*255)+1, (int)(Math.random()*255)+1, (int)(Math.random()*255)+1);
+		rect(foodX, foodY, 20, 20);
+	}
+
+	void eaten(){
+			foodX=(int)(Math.random()*512);
+			foodY=(int)(Math.random()*512);
+	}
+	
 }
-*/
