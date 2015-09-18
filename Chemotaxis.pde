@@ -3,6 +3,7 @@ Foods chewy;
 int randomRed=(int)(Math.random()*255)+1;
 int randomBlue=(int)(Math.random()*255)+1;
 int randomGreen=(int)(Math.random()*255)+1;
+int foodCounters=0;
  void setup()   
  {     
  	//initialize bacteria variables here  
@@ -22,52 +23,98 @@ int randomGreen=(int)(Math.random()*255)+1;
  		chewy.show();
  		swagMastas[j].show();
  		swagMastas[j].walk();
- 		if((swagMastas[j].myX==chewy.foodX) && (swagMastas[j].myY==chewy.foodY)){
+ 		if(((chewy.foodX < swagMastas[j].myX && swagMastas[j].myX<chewy.foodX+20) || swagMastas[j].myX==chewy.foodX+20)  && ((chewy.foodY < swagMastas[j].myY && swagMastas[j].myY<chewy.foodY+20) || swagMastas[j].myY==chewy.foodY+20)){
 			chewy.eaten();
+			foodCounters++;
 		}
  	}
- 	
-	
+ 	fill(0);
+ 	textSize(20);
+ 	text("Foods count: "+foodCounters , 200, 500);
+
+ 	if(foodCounters>=20){
+ 		for (int j = 0; j < swagMastas.length; ++j) {
+ 		swagMastas[j].stop();	
+ 	}
+ 		fill(0);
+ 		textSize(64);
+ 		text("You win", 200, 256, 100);
+
+ 		foodCounters=0;
+
+ 		
+ 	}
  }  
+
+ void mousePressed()
+{
+ for (int a = 0; a < swagMastas.length; ++a) {
+  	swagMastas[a].redColor = (int)(Math.random()*255)+1;
+  	swagMastas[a].greenColor = (int)(Math.random()*255)+1;
+  	swagMastas[a].blueColor = (int)(Math.random()*255)+1;
+  }
+
+ 	randomRed=(int)(Math.random()*255)+1;
+	randomBlue=(int)(Math.random()*255)+1;
+	randomGreen=(int)(Math.random()*255)+1;
+	chewy.foodX=(int)(Math.random()*512);
+	chewy.foodY=(int)(Math.random()*512);
+	chewy.redFood =(int)(Math.random()*255)+1;
+	chewy.greenFood =(int)(Math.random()*255)+1;
+	chewy.blueFood =(int)(Math.random()*255)+1;
+  
+}
 
  //bacteria class
  class Bacteria    
  {     
- 	int myX, myY;
+ 	int myX, myY, redColor, blueColor, greenColor, randomX, randomY;
 
  	Bacteria(){
  		myX = 256;
  		myY = 256;
+ 		redColor = (int)(Math.random()*255)+1;
+ 		greenColor = (int)(Math.random()*255)+1;
+ 		blueColor = (int)(Math.random()*255)+1;
  	}
 
  	void show(){
- 		fill((int)(Math.random()*255)+1, (int)(Math.random()*255)+1, (int)(Math.random()*255)+1);
+ 		fill(redColor, greenColor, blueColor);
  		ellipse(myX, myY, 10, 10);
  	}
 
  	void walk(){
- 		int randomX = (int)((Math.random()*5)-2.5);
- 		int randomY = (int)((Math.random()*5)-2.5);
+ 		randomX = (int)((Math.random()*10)-5);
+ 		randomY = (int)((Math.random()*10)-5);
  		if(myX<512 && myX>0){
  			myX= myX + randomX;
  		}
- 		if(myY<512 && myY>0){
+ 		if(myY<490 && myY>0){
  		myY = myY + randomY;
  		}
       }
+
+    void stop(){
+    	myX=256;
+    	myY=256;
+    	redraw();
+    }
 }
 
 class Foods
 {
-	int foodX, foodY;
+	int foodX, foodY, redFood, greenFood, blueFood;
 
 	Foods(){
 		foodX = 300;
 		foodY = 250;
+		redFood = (int)(Math.random()*255)+1;
+ 		greenFood = (int)(Math.random()*255)+1;
+ 		blueFood = (int)(Math.random()*255)+1;
 	}
 
 	void show(){
-		fill((int)(Math.random()*255)+1, (int)(Math.random()*255)+1, (int)(Math.random()*255)+1);
+		fill(redFood, greenFood, blueFood);
 		rect(foodX, foodY, 20, 20);
 	}
 
