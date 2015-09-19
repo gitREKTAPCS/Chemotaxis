@@ -53,7 +53,7 @@ int foodCounters=0;
  void mousePressed()
 {
   chewy.foodX=(int)(Math.random()*512);
-  chewy.foodY=(int)(Math.random()*512);
+  chewy.foodY=(int)(Math.random()*500);
   
 }
 
@@ -112,7 +112,7 @@ class Foods
 
   void eaten(){
       foodX=(int)(Math.random()*512);
-      foodY=(int)(Math.random()*512);
+      foodY=(int)(Math.random()*500);
   }
   
 }
