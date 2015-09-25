@@ -68,6 +68,7 @@ PFont f;
   	deathMachine.randomEnemyY=0;
   	killEm.randomEnemyX=0;
   	killEm.randomEnemyY=0;
+  	noLoop();
    }
 
    if(deathCounter>=325){
@@ -86,7 +87,7 @@ PFont f;
   	deathMachine.randomEnemyY=0;
   	killEm.randomEnemyX=0;
   	killEm.randomEnemyY=0;
-
+	noLoop();
    }
  }  
 
