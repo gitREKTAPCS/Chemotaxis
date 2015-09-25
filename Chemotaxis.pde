@@ -16,8 +16,8 @@ PFont f;
    for (int i = 0; i < swagMastas.length; ++i) {
      swagMastas[i] = new Bacteria();
    }
-    deathMachine = new Enemy();
-    killEm = new Enemy();
+    deathMachine = new Enemy(200,200);
+    killEm = new Enemy(350,350);
     chewy = new Foods();
     f = createFont("Calbri",34,true);
  }   
@@ -180,9 +180,9 @@ class Enemy
   int enemyX, enemyY, redEnemy, greenEnemy, blueEnemy, randomEnemyX, randomEnemyY;
   boolean isFinished=false;
 
-  Enemy(){
-    enemyX= 256;
-    enemyY = 256;
+  Enemy(int x, int y){
+    enemyX= x;
+    enemyY = y;
     redEnemy = 0;
     blueEnemy =0;
     greenEnemy = 0;
