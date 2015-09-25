@@ -35,18 +35,20 @@ PFont f;
      swagMastas[j].walk();
      swagMastas[j].show();
      if(((chewy.foodX < swagMastas[j].myX && swagMastas[j].myX<chewy.foodX+20) || swagMastas[j].myX==chewy.foodX+20)  && ((chewy.foodY < swagMastas[j].myY && swagMastas[j].myY<chewy.foodY+20) || swagMastas[j].myY==chewy.foodY+20)){
-      chewy.eaten();
       foodCounters++;
+       chewy.eaten();
+      
     }
     if(((deathMachine.enemyX < swagMastas[j].myX && swagMastas[j].myX<deathMachine.enemyX+20) || swagMastas[j].myX==deathMachine.enemyX+20)  && ((deathMachine.enemyY < swagMastas[j].myY && swagMastas[j].myY<deathMachine.enemyY+20) || swagMastas[j].myY==deathMachine.enemyY+20)){
-    	swagMastas[j].isAlive=false;
-    	deathCounter++;
+      deathCounter++;
+      swagMastas[j].isAlive=false;
 
-	}
-	if(((killEm.enemyX < swagMastas[j].myX && swagMastas[j].myX<killEm.enemyX+20) || swagMastas[j].myX==killEm.enemyX+20)  && ((killEm.enemyY < swagMastas[j].myY && swagMastas[j].myY<killEm.enemyY+20) || swagMastas[j].myY==killEm.enemyY+20)){
-    	swagMastas[j].isAlive=false;
-    	deathCounter++;
-	}
+  }
+  if(((killEm.enemyX < swagMastas[j].myX && swagMastas[j].myX<killEm.enemyX+20) || swagMastas[j].myX==killEm.enemyX+20)  && ((killEm.enemyY < swagMastas[j].myY && swagMastas[j].myY<killEm.enemyY+20) || swagMastas[j].myY==killEm.enemyY+20)){
+    deathCounter++;  
+    swagMastas[j].isAlive=false;
+      
+  }
    }
    //text
    fill(0);
@@ -57,37 +59,14 @@ PFont f;
      for (int j = 0; j < swagMastas.length; ++j) {
      swagMastas[j].stop();  
    }
-   background(0);
-  	textFont(f,16);                 
-  	fill(255);                        
-  	text("YOU WIN!!!",256,256); 
-  	text("Refresh page to try again",256,300);  
-  	foodCounters=0;
-  	deathCounter=0;
-  	deathMachine.randomEnemyX=0;
-  	deathMachine.randomEnemyY=0;
-  	killEm.randomEnemyX=0;
-  	killEm.randomEnemyY=0;
-  	noLoop();
+      win();
    }
 
    if(deathCounter>=325){
      for (int j = 0; j < swagMastas.length; ++j) {
      swagMastas[j].stop();  
    }
-   background(0);
-  	textFont(f,16);                 
-  	fill(255);     
-  	text("ALL YOUR BACTERIA DIED!!!",256,200);                    
-  	text("YOU LOOOOOOOOSE!!!",256,256); 
-  	text("Refresh page to try again",256,300); 
-  	foodCounters=0;
-  	deathCounter=0;
-  	deathMachine.randomEnemyX=0;
-  	deathMachine.randomEnemyY=0;
-  	killEm.randomEnemyX=0;
-  	killEm.randomEnemyY=0;
-	noLoop();
+      lose();
    }
  }  
 
@@ -98,7 +77,35 @@ PFont f;
   chewy.foodY=(int)(Math.random()*490);
   
 }
-
+ 
+ //win and lose text
+ void lose(){
+   foodCounters=0;
+    deathCounter=0;
+    deathMachine.isFinished=true;
+    killEm.isFinished=true;
+    background(0);
+    textFont(f,16);                 
+    fill(255);     
+    text("ALL YOUR BACTERIA DIED!!!",256,200);                    
+    text("YOU LOOOOOOOOSE!!!",256,256); 
+    text("Refresh page to try again",256,300); 
+    noLoop(); 
+ }
+ 
+ void win(){
+   foodCounters=0;
+    deathCounter=0;
+    deathMachine.isFinished=true;
+    killEm.isFinished=true; 
+    background(0);
+    textFont(f,16);                 
+    fill(255);                        
+    text("YOU WIN!!!",256,256); 
+    text("Refresh page to try again",256,300);  
+    noLoop();
+  }
+    
  //bacteria class
  class Bacteria    
  {     
@@ -115,15 +122,15 @@ PFont f;
    }
 
    void show(){
-   	if(isAlive==true){
+     if(isAlive==true){
      fill(redColor, greenColor, blueColor);
      ellipse(myX, myY, 10, 10);
  }else{
- 	myX=(int)(Math.random()*512);
-	myY=500;
-	redColor = 0;
-	blueColor = 0;
-	greenColor = 0;
+   myX=(int)(Math.random()*512);
+  myY=500;
+  redColor = 0;
+  blueColor = 0;
+  greenColor = 0;
  }
    }
 
@@ -170,22 +177,23 @@ class Foods
 
 class Enemy
 {
-	int enemyX, enemyY, redEnemy, greenEnemy, blueEnemy, randomEnemyX, randomEnemyY;
+  int enemyX, enemyY, redEnemy, greenEnemy, blueEnemy, randomEnemyX, randomEnemyY;
+  boolean isFinished=false;
 
-	Enemy(){
-		enemyX= 300;
-		enemyY = 300;
-		redEnemy = 0;
-		blueEnemy =0;
-		greenEnemy = 0;
-	}
+  Enemy(){
+    enemyX= 256;
+    enemyY = 256;
+    redEnemy = 0;
+    blueEnemy =0;
+    greenEnemy = 0;
+  }
 
-	void show(){
-		fill(redEnemy, greenEnemy, blueEnemy);
-		rect(enemyX, enemyY, 20, 20);
-	}
+  void show(){
+    fill(redEnemy, greenEnemy, blueEnemy);
+    rect(enemyX, enemyY, 20, 20);
+  }
 
-	 void move(){
+   void move(){
      randomEnemyX = (int)((Math.random()*20)-10);
      randomEnemyY = (int)((Math.random()*20)-10);
      if(enemyX<490 && enemyX>22){
@@ -194,9 +202,13 @@ class Enemy
      if(enemyY<490 && enemyY>22){
      enemyY = enemyY + randomEnemyY;
      }
+     if(isFinished==true){
+      randomEnemyX=0;
+      randomEnemyY=0;
+     }
       }
-
-	}
+  
+  }
 
 
 
